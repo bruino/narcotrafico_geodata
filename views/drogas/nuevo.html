@@ -1,0 +1,156 @@
+{{extend 'layout.html'}}
+
+{{=form.custom.begin}}
+<div class="d-flex p-y">
+    <h3>Nuevo Caso de Droga</h3>
+    <div class="ml-auto">{{=form.custom.submit}}</div>
+</div>
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#caso">Caso de Drogas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#secuestro">Secuestro</a>
+    </li>
+</ul>
+<div id="formulario" class="tab-content">
+    <div class="tab-pane fade show active py-3" id="caso">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">{{=form.custom.label.fecha}}</label>
+                    <div class="col-sm-8">
+                        {{=form.custom.widget.fecha}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">{{=form.custom.label.lugar}}</label>
+                    <div class="col-sm-8">
+                        {{=form.custom.widget.lugar}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">{{=form.custom.label.tipo_procedimiento}}</label>
+                    <div class="col-sm-8">
+                        {{=form.custom.widget.tipo_procedimiento}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">{{=form.custom.label.digedrop}}</label>
+                    <div class="col-sm-8">
+                        {{=form.custom.widget.digedrop}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">{{=form.custom.label.juzgado}}</label>
+                    <div class="col-sm-8">
+                        {{=form.custom.widget.juzgado}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">{{=form.custom.label.comisaria}}</label>
+                    <div class="col-sm-8">
+                        {{=form.custom.widget.comisaria}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">{{=form.custom.label.resultado}}</label>
+                    <div class="col-sm-8">
+                        {{=form.custom.widget.resultado}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                {{=form.custom.widget.latlng}}
+            </div>
+        </div>
+
+    </div>
+    <div class="tab-pane fade" id="secuestro">
+        <div class="row py-3">
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.marihuana}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.marihuana}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.cocaina}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.cocaina}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.plantines}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.plantines}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.semillas}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.semillas}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.pastillas}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.pastillas}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-4 col-form-label">{{=form.custom.label.sustancias_desconocidas}}</label>
+                    <div class="col-md-8">
+                        {{=form.custom.widget.sustancias_desconocidas}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.pesos}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.pesos}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.dolares}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.dolares}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.chilenos}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.chilenos}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.bolivianos}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.bolivianos}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.euros}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.euros}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">{{=form.custom.label.reales}}</label>
+                    <div class="col-md-10">
+                        {{=form.custom.widget.reales}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-md-2 col-form-label">{{=form.custom.label.otros}}</label>
+            <div class="col-md-10">
+                {{=form.custom.widget.otros}}
+            </div>
+        </div>
+    </div>
+</div>
+{{=form.custom.end}}

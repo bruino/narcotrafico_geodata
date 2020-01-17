@@ -1,0 +1,171 @@
+{{ extend 'layout.html' }}
+
+<div class="row">
+    <div class="col-md-8">
+        <div id='map' style='width: 100%; height: 500px'></div>
+    </div>
+    <div class="col-md-4">
+        <h4>Indicadores</h4>
+        
+        <h4>Regionales</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card border-danger mb-3">
+                    <div class="card-body">
+                        {{=capital}}
+                    </div>
+                    <div class="card-footer">Capital</div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+            <div class="card border-info mb-3">
+                <div class="card-body">
+                    {{=talitas}}
+                </div>
+                <div class="card-footer">Las Talitas</div>
+            </div>
+            </div>
+            <div class="col-sm-6">
+            <div class="card border-success mb-3">
+                <div class="card-body">
+                    {{=este}}
+                </div>
+                <div class="card-footer">Este</div>
+            </div>
+            </div>
+            <div class="col-sm-6">
+            <div class="card border-warning mb-3">
+                <div class="card-body">
+                    {{=oeste}}
+                </div>
+                <div class="card-footer">Oeste</div>
+            </div>
+            </div>
+            <div class="col-sm-6">
+            <div class="card border-dark mb-3">
+                <div class="card-body">
+                    {{=sur}}
+                </div>
+                <div class="card-footer">Sur</div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    /* Layers Mapbox */
+    var street = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYnJ1aW5vIiwiYSI6ImNqeTBiam9zMTAxZ2czZ3E4aGE2ZHQ0bGIifQ.SbLskdmBG33M34jXkrSSOA', {
+        attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    var satellite_street = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYnJ1aW5vIiwiYSI6ImNqeTBiam9zMTAxZ2czZ3E4aGE2ZHQ0bGIifQ.SbLskdmBG33M34jXkrSSOA', {
+        attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+    var dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYnJ1aW5vIiwiYSI6ImNqeTBiam9zMTAxZ2czZ3E4aGE2ZHQ0bGIifQ.SbLskdmBG33M34jXkrSSOA', {
+        attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    });
+
+    var red_icon = new L.Icon({
+        iconUrl: "{{=URL('static', 'images/icon-leaflet/marker-icon-2x-red.png')}}",
+        shadowUrl: "{{=URL('static', 'images/icon-leaflet/marker-shadow.png')}}",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    
+    var violet_icon = new L.Icon({
+        iconUrl: "{{=URL('static', 'images/icon-leaflet/marker-icon-2x-violet.png')}}",
+        shadowUrl: "{{=URL('static', 'images/icon-leaflet/marker-shadow.png')}}",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    
+    /* Puntos de Casos de Drogas*/
+    var investigacion_mapa = L.markerClusterGroup();
+    {{for point in investigaciones:}}
+        investigacion_mapa.addLayer(L.marker({{=point[0]}}, {icon: red_icon}).bindPopup("{{=point[1]}}"));
+    {{pass}}
+
+    var flagrancia_mapa = L.markerClusterGroup();
+    {{for point in flagrancia:}}
+        flagrancia_mapa.addLayer(L.marker({{=point[0]}}, {icon: violet_icon}).bindPopup("{{=point[1]}}"));
+    {{pass}}
+
+    /* Instanciación del Mapa */
+    var map = L.map('map', {
+        center: [-26.83077, -65.21644],
+        zoom: 8,
+        layers: [street, satellite_street, dark, investigacion_mapa, flagrancia_mapa],
+        maxZoom: 18,
+    });
+    map.addControl(new L.Control.Fullscreen());
+
+    /* Agregar Layers */
+    var capas = {
+        'Satelital': satellite_street,
+        'Oscuro': dark,
+        'Street': street, /** Por Defecto */
+    };
+
+    /* Capas KML */
+    var tucuman = omnivore.kml("{{=URL('static/kml', 'departamentos.kml')}}", null, L.geoJson(null, {
+            // http://leafletjs.com/reference.html#geojson-style
+            style: function (feature) {
+                return { color: '#20B2AA' };
+            }
+        })
+    );
+    var digedrop_talitas = omnivore.kml("{{=URL('static/kml', 'kml_las_talitas.kml')}}", null, L.geoJson(null, {
+            // http://leafletjs.com/reference.html#geojson-style
+            style: function (feature) {
+                return { color: '#0097A0' };
+            }
+        })
+    );
+    var digedrop_capital = omnivore.kml("{{=URL('static/kml', 'kml_capital.kml')}}", null, L.geoJson(null, {
+            // http://leafletjs.com/reference.html#geojson-style
+            style: function (feature) {
+                return { color: '#EB6637' };
+            }
+        })
+    );
+    var digedrop_este = omnivore.kml("{{=URL('static/kml', 'kml_este.kml')}}", null, L.geoJson(null, {
+            // http://leafletjs.com/reference.html#geojson-style
+            style: function (feature) {
+                return { color: '#96D96C' };
+            }
+        })
+    );
+    var digedrop_oeste = omnivore.kml("{{=URL('static/kml', 'kml_oeste.kml')}}", null, L.geoJson(null, {
+            // http://leafletjs.com/reference.html#geojson-style
+            style: function (feature) {
+                return { color: '#8C5ADD' };
+            }
+        })
+    );
+    var digedrop_sur = omnivore.kml("{{=URL('static/kml', 'kml_sur.kml')}}", null, L.geoJson(null, {
+            // http://leafletjs.com/reference.html#geojson-style
+            style: function (feature) {
+                return { color: '#C1DD00' };
+            }
+        })
+    );
+    var comisarias = omnivore.kml("{{=URL('static/kml', 'comisarias.kml')}}");
+
+    /* Agrega Capas*/
+    var capas_kml = {
+            "<span style='color: red'>Investigación</span>": investigacion_mapa,
+            "<span style='color: purple'>Flagrancia</span>": flagrancia_mapa,
+            "<span style='color: green'>Tucumán</span>": tucuman,
+            "DiGeDrop Las Talitas": digedrop_talitas,
+            "DiGeDrop Capital": digedrop_capital,
+            "DiGeDrop Este": digedrop_este,
+            "DiGeDrop Oeste": digedrop_oeste,
+            "DiGeDrop Sur": digedrop_sur,
+            "<span style='color: blue'>Comisarías</span>": comisarias,
+        };
+
+    L.control.layers(capas, capas_kml).addTo(map)
+</script>

@@ -1,0 +1,12 @@
+{{extend 'layout.html'}}
+<h3 class="py-2">Planilla de Casos de Drogas</h3>
+{{=form}}
+
+{{if request.args(0) == 'CasoDeDroga' and request.args(1) == 'view' and request.args(2) == 'CasoDeDroga' and request.args(3):}}
+    <hr>
+    {{=LOAD('drogas','vehiculo_droga.load', args=['CasoDeDroga','Vehiculo.id_caso_de_droga', request.args(3)], ajax=True)}}
+    <hr>
+    {{=LOAD('drogas','denunciado_droga.load', args=['CasoDeDroga','Denunciado.id_caso_de_droga', request.args(3)], ajax=True)}}
+    <hr>
+    {{=LOAD('drogas','arma_droga.load', args=['CasoDeDroga','Arma.id_caso_de_droga', request.args(3)], ajax=True)}}
+{{pass}}

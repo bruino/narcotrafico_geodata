@@ -1,0 +1,3 @@
+{{form.components.pop(0)}}
+<div class="h3">Armas</div>
+{{=form}}

@@ -1,0 +1,37 @@
+{{extend 'layout.html'}}
+
+{{block header}}
+<div class="container main-container py-1">
+  <div class="jumbotron">
+    {{=IMG(_src=URL('static/images', 'sec_narcotrafico.png'), _alt="comment", _width="400", _class="pull-right")}}
+    <h1 class="display-3">Bienvenido!</h1>
+    <p class="lead">Sistema de Carga y Visualización de Casos de Drogas.</p>
+    <hr class="my-4">
+    <span class="badge badge-danger">Contenido Delicado</span>
+    <span class="badge badge-warning">Sea Responsable</span>
+    <span class="badge badge-primary">Se Registra todas sus actividades y su uso</span>
+    <p>Secretario de Lucha Contra el Narcotráfico: Cte My (R) Carlos Driollet</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="{{=URL('drogas', 'mapa')}}" role="button">Ir a Mapa</a>
+    </p>
+  </div>
+</div>
+{{end}}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="jumbotron jumbotron-fluid" style="padding:30px;word-wrap:break-word;">
+      <div class="container center">
+        <a class="btn btn-primary" href="{{=URL('appadmin', 'index')}}">
+          <i class="fa fa-cog"></i>
+          {{=T("admin")}}
+        </a>
+        <a class="btn btn-secondary" href="http://web2py.com">web2py.com</a>
+        <a class="btn btn-secondary" href="http://web2py.com/book">{{=T('Documentation')}}</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
