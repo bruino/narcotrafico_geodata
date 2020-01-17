@@ -2,6 +2,7 @@
 cache
 databases
 errors
+private
 sessions
 uploads
 compiled
